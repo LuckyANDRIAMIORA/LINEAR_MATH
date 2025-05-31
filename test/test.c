@@ -7,9 +7,9 @@ int main(){
         printf("Failed to create vector.\n");
         return 1;
     }
-    set(v, 0, 3);
+    setVectorElement(v, 0, 3);
     int success;
-    double value = get(v, 0,&success);
+    double value = getVectorElement(v, 0,&success);
     if(success) printf("%f\n", value);
     printVector(v);
     destroyVector(v);

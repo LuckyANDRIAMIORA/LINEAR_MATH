@@ -36,12 +36,12 @@ void printVector(Vector* v){
     printf("]\n");
 }
 
-void set(Vector* v, int index, double value){
+void setVectorElement(Vector* v, int index, double value){
     if(!v || index < 0 || index >= v->dimension) return;
     v->data[index] = value;
 }
 
-double get(Vector* v, int index, int* success){
+double getVectorElement(Vector* v, int index, int* success){
     if(!v || index < 0){
         if (success) *success = 0;
         return 0.0;
@@ -50,7 +50,7 @@ double get(Vector* v, int index, int* success){
     return v->data[index];
 }
 
-Vector* scale(Vector* v, double scalar){
+Vector* scalarMultiplication(Vector* v, double scalar){
     if(!v) return NULL;
     int dimension = v->dimension;
     for (int i = 0; i < dimension; i++)
@@ -60,7 +60,7 @@ Vector* scale(Vector* v, double scalar){
     return v;
 }
 
-Vector* addition(Vector* v1, Vector* v2){
+Vector* vectorAddition(Vector* v1, Vector* v2){
     if(!v1 || !v2 || v1->dimension != v2->dimension) return NULL;
     Vector* result = createVector(v1->dimension);
     if(!result) return NULL;
@@ -72,7 +72,7 @@ Vector* addition(Vector* v1, Vector* v2){
     return result;
 }
 
-Vector* subtraction(Vector* v1, Vector* v2){
+Vector* vectorSubtraction(Vector* v1, Vector* v2){
     if(!v1 || !v2 || v1->dimension != v2->dimension) return NULL;
     Vector* result = createVector(v1->dimension);
     if(!result) return NULL;
