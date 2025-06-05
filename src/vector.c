@@ -1,6 +1,7 @@
 #include "vector.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "math.h"
 
 Vector* createVector(int size){
     if (size <= 0) return NULL;
@@ -53,11 +54,13 @@ double getVectorElement(Vector* v, int index, int* success){
 Vector* scalarMultiplication(Vector* v, double scalar){
     if(!v) return NULL;
     int dimension = v->dimension;
+    Vector* newV = createVector(dimension);
+    if (!newV) return NULL;
     for (int i = 0; i < dimension; i++)
     {
-        v->data[i] = v->data[i] * scalar;
+        newV->data[i] = v->data[i] * scalar;
     }
-    return v;
+    return newV;
 }
 
 Vector* vectorAddition(Vector* v1, Vector* v2){
@@ -82,4 +85,61 @@ Vector* vectorSubtraction(Vector* v1, Vector* v2){
         result->data[i] = v1->data[i] - v2->data[i];
     }
     return result;
+}
+
+double magnitude(Vector* v, int* success){
+    if (!v){
+        if(success) *success = 0;
+        return 0.0;
+    }
+    double sum = 0.0;
+    int dimension = v->dimension;
+    for (int i = 0; i < dimension; i++)
+    {
+        sum += v->data[i] * v->data[i];
+    }
+    if(success) *success = 1;
+    return sqrt(sum);
+}
+
+void normalize(Vector* v){
+    if(!v) return;
+    int success;
+    double magnitudeValue = magnitude(v, &success);
+    if(!success) return;
+    int dimension = v->dimension;
+    for (int i = 0; i < dimension; i++)
+    {
+        v->data[i] = v->data[i] / magnitudeValue;
+    }
+}
+
+double dotProduct(Vector* v1, Vector* v2, int* success){
+    if(!v1 || !v2 || v1->dimension != v2->dimension){
+        if(success) *success = 0;
+        return 0.0;
+    }
+    int dimension = v1->dimension;
+    double value = 0.0;
+    for (int i = 0; i < dimension; i++)
+    {
+        value += (v1->data[i] * v2->data[i]);
+    }
+
+    if (success) *success = 1;
+    return value;
+}
+
+Vector* crossProduct(Vector* v1, Vector* v2){
+    if(!v1 || !v2 || v1->dimension != 3 || v2->dimension != 3){
+        return NULL;
+    }
+    Vector* v3 = createVector(3);
+    if(!v3) return NULL;
+
+    v3->data[0] = v1->data[1] * v2->data[2] - v1->data[2] * v2->data[1];
+    v3->data[1] = v1->data[2] * v2->data[0] - v1->data[0] * v2->data[2];
+    v3->data[2] = v1->data[0] * v2->data[1] - v1->data[1] * v2->data[0];
+
+    return v3;
 }

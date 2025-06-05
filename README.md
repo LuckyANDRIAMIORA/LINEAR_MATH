@@ -14,6 +14,7 @@ A lightweight C library for linear algebra — written from scratch, for fun and
 - Vector addition  
 - Vector subtraction  
 - Dot product  
+- Cross product
 - Magnitude calculation  
 - Vector normalization  
 - Print vectors (because seeing the math helps)  
