@@ -143,3 +143,23 @@ Vector* crossProduct(Vector* v1, Vector* v2){
 
     return v3;
 }
+
+Vector* copyVector(Vector v1){
+    Vector* newVec = malloc(sizeof(Vector));
+    if (!newVec) return NULL; 
+    *newVec = v1;
+    return newVec;
+}
+
+Vector* projectVector(Vector* v1, Vector* v2){
+    if(!v1 || !v2) return NULL;
+    int success;
+    double dotProdValue = dotProduct(v1, v2, &success);
+    if(!success) return NULL;
+    double magnValue = magnitude(v2, &success);
+    if(!success) return NULL;
+    double fractionValue = dotProdValue/pow(magnValue,2);
+    Vector* projV1toV2 = scalarMultiplication(v2, fractionValue);
+    if(!projV1toV2) return NULL;
+    return projV1toV2;
+}

@@ -18,5 +18,6 @@ double magnitude(Vector* v, int* success);
 void normalize(Vector* v);
 double dotProduct(Vector* v1, Vector* v2, int* success);
 Vector* crossProduct(Vector* v1, Vector* v2);
-
+Vector* copyVector(Vector v1);
+Vector* projectVector(Vector* v1, Vector* v2);
 #endif

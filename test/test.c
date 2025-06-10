@@ -75,6 +75,27 @@ int main() {
         return 1;
     }
 
+    Vector* v6 = copyVector(*v3);
+    if(!v6){
+        destroyVector(v);
+        destroyVector(v2);
+        destroyVector(v3);
+        destroyVector(v4);
+        destroyVector(v5);
+        return 1;
+    }
+
+    Vector* v7 = projectVector(v6, v5);
+    if(!v7){
+        destroyVector(v);
+        destroyVector(v2);
+        destroyVector(v3);
+        destroyVector(v4);
+        destroyVector(v5);
+        destroyVector(v6);
+        return 1;
+    }
+
     printf("Original vector v:\n");
     printVector(v);
 
@@ -100,14 +121,21 @@ int main() {
 
     printf("v3 new value:\n");
     printVector(v3);
+    printf("copy of v3 value v6:\n");
+    printVector(v6);
 
     printf("Cross product of v3 and v4 vector result v5:\n");
     printVector(v5);
+
+    printf("projection of v6 to v5 vector result v7:\n");
+    printVector(v7);
 
     destroyVector(v);
     destroyVector(v2);  
     destroyVector(v3);
     destroyVector(v4);
     destroyVector(v5);
+    destroyVector(v6);
+    destroyVector(v7);
     return 0;
 }
